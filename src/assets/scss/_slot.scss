@@ -7,26 +7,27 @@
 
 .title {
   height: auto;
-  max-width: $title-width;
+  // max-width: $title-width;
   width: 100%;
   margin: $title-margin-top 0 $title-margin-bottom 0;
   position: relative;
   z-index: $z-index-title; // make sure title on top of sunburst
   color: $color-title-border;
   display: inline-block;
+  font-size: 3rem;
 
-  @each $media-query, $factor in $scale-factors {
-    @media #{$media-query} {
-      max-width: $title-width * $factor;
-      margin: $title-margin-top 0 $title-margin-bottom * $factor 0;
-    }
-  }
+  // @each $media-query, $factor in $scale-factors {
+  //   @media #{$media-query} {
+  //     max-width: $title-width * $factor;
+  //     margin: $title-margin-top 0 $title-margin-bottom * $factor 0;
+  //   }
+  // }
 
-  svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+  // svg {
+  //   width: 100%;
+  //   height: auto;
+  //   display: block;
+  // }
 }
 
 .control-group {
