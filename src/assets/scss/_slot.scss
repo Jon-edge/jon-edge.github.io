@@ -12,9 +12,10 @@
   margin: $title-margin-top 0 $title-margin-bottom 0;
   position: relative;
   z-index: $z-index-title; // make sure title on top of sunburst
-  color: $color-title-border;
+  color: $color-white;
   display: inline-block;
-  font-size: 3rem;
+  font-size: 4rem;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
 
   // @each $media-query, $factor in $scale-factors {
   //   @media #{$media-query} {
@@ -99,7 +100,7 @@
 
   > div {
     height: $reel-item-height;
-    font-size: 3.75rem;
+    font-size: 5rem;
     font-weight: bold;
     text-align: center;
     line-height: $reel-item-height;
@@ -118,6 +119,7 @@
   margin: $draw-button-margin-top 0 0;
   position: relative;
   z-index: $z-index-draw-button; // make sure draw button on top of sunburst
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
   @each $media-query, $factor in $scale-factors {
     @media #{$media-query} {

@@ -4,6 +4,7 @@ import SoundEffects from '@js/SoundEffects';
 
 // Initialize slot machine
 (() => {
+  console.error('Initialize slot machine...');
   const drawButton = document.getElementById('draw-button') as HTMLButtonElement | null;
   const fullscreenButton = document.getElementById('fullscreen-button') as HTMLButtonElement | null;
   const settingsButton = document.getElementById('settings-button') as HTMLButtonElement | null;
@@ -119,9 +120,11 @@ import SoundEffects from '@js/SoundEffects';
 
   // Click handler for "Draw" button
   drawButton.addEventListener('click', () => {
+    console.error('click');
     if (!slot.names.length) {
-      onSettingsOpen();
-      return;
+      // onSettingsOpen();
+      // return;
+      slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
     }
 
     slot.spin();

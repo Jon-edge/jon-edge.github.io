@@ -17,7 +17,7 @@ interface SlotConfigurations {
 /** Class for doing random name pick and animation */
 export default class Slot {
   /** List of names to draw from */
-  private nameList: string[] = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+  private nameList: string[];
 
   /** Whether there is a previous winner element displayed in reel */
   private havePreviousWinner: boolean;
@@ -113,7 +113,7 @@ export default class Slot {
 
   /** Getter for name list */
   get names(): string[] {
-    return ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William']; // this.nameList;
+    return this.nameList;
   }
 
   /**

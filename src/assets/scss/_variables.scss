@@ -22,16 +22,16 @@ $z-index-settings: 10;
 // title
 $title-width: 31rem;
 $title-margin-top: 1.75rem;
-$title-margin-bottom: 4.875rem;
+$title-margin-bottom: 1rem;
 
 // reel
 $reel-item-height: 7.5rem;
 
 // slot
-$slot-width: 62.5rem;
+$slot-width: 40.5rem;
 $slot-height: 14.375rem;
 $slot-border-radius: 1.25rem;
-$slot-border-width: 1.625rem;
+$slot-border-width: 1rem;
 $slot-inner-padding: (
     $slot-height - ($slot-border-width * 2) - $reel-item-height
   ) / 2;
