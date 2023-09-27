@@ -17,6 +17,14 @@ import SoundEffects from '@js/SoundEffects';
   const nameListTextArea = document.getElementById('name-list') as HTMLTextAreaElement | null;
   const removeNameFromListCheckbox = document.getElementById('remove-from-list') as HTMLInputElement | null;
   const enableSoundCheckbox = document.getElementById('enable-sound') as HTMLInputElement | null;
+  const luckyDrawEl = document.getElementById('lucky-draw')!;
+
+  // Add leaderboard element
+  const leaderboardEl = document.createElement('div');
+  leaderboardEl.id = 'leaderboard';
+  // document.querySelector('.main')!.prepend(leaderboardEl);
+  // Append leaderboard to end of lucky draw
+  luckyDrawEl.appendChild(leaderboardEl);
 
   // Graceful exit if necessary elements are not found
   if (!(
@@ -36,6 +44,11 @@ import SoundEffects from '@js/SoundEffects';
     console.error('One or more Element ID is invalid. This is possibly a bug.');
     return;
   }
+
+  // Load name pick counts from localStorage
+  const namePickCoutsRaw = localStorage.getItem('namePickCounts');
+  const namePickCounts: Record<string, number> = namePickCoutsRaw == null ? {}
+    : JSON.parse(namePickCoutsRaw);
 
   if (!(confettiCanvas instanceof HTMLCanvasElement)) {
     console.error('Confetti canvas is not an instance of Canvas. This is possibly a bug.');
@@ -86,8 +99,34 @@ import SoundEffects from '@js/SoundEffects';
     soundEffects.spin((MAX_REEL_ITEMS - 1) / 10);
   };
 
+  const renderLeaderBoard = () => {
+    // Clear existing leaderboard elements
+    leaderboardEl.innerHTML = '';
+
+    // Add a title:
+    const title = document.createElement('div');
+    title.textContent = 'WINNERS:';
+    leaderboardEl.appendChild(title);
+
+    // Sort counts descending
+    const sortedCounts = Object.entries(namePickCounts).sort((a, b) => b[1] - a[1]);
+
+    // Render leaderboard
+    sortedCounts.forEach(([name, count]) => {
+      const item = document.createElement('div');
+      item.textContent = `${name}: ${count}`;
+      leaderboardEl.appendChild(item);
+    });
+  };
+
   /**  Functions to be trigger after spinning */
-  const onSpinEnd = async () => {
+  const onSpinEnd = async (winner: string) => {
+    // Increment name pick count
+    namePickCounts[winner] = (namePickCounts[winner] || 0) + 1;
+    // Save updated counts to localStorage
+    localStorage.setItem('namePickCounts', JSON.stringify(namePickCounts));
+    renderLeaderBoard();
+
     confettiAnimation();
     sunburstSvg.style.display = 'block';
     await soundEffects.win();
@@ -164,4 +203,6 @@ import SoundEffects from '@js/SoundEffects';
 
   // Click handler for "Discard and close" button for setting page
   settingsCloseButton.addEventListener('click', onSettingsClose);
+
+  renderLeaderBoard();
 })();
