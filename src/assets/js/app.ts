@@ -121,6 +121,9 @@ import SoundEffects from '@js/SoundEffects';
 
   /**  Functions to be trigger after spinning */
   const onSpinEnd = async (winner: string) => {
+    drawButton.disabled = false;
+    settingsButton.disabled = false;
+
     // Increment name pick count
     namePickCounts[winner] = (namePickCounts[winner] || 0) + 1;
     // Save updated counts to localStorage
@@ -130,8 +133,6 @@ import SoundEffects from '@js/SoundEffects';
     confettiAnimation();
     sunburstSvg.style.display = 'block';
     await soundEffects.win();
-    drawButton.disabled = false;
-    settingsButton.disabled = false;
   };
 
   /** Slot instance */
