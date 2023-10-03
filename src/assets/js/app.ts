@@ -96,7 +96,7 @@ import SoundEffects from '@js/SoundEffects';
     stopWinningAnimation();
     drawButton.disabled = true;
     settingsButton.disabled = true;
-    soundEffects.spin((MAX_REEL_ITEMS - 1) / 10);
+    soundEffects.spin(4);
   };
 
   const renderLeaderBoard = () => {
@@ -162,9 +162,9 @@ import SoundEffects from '@js/SoundEffects';
   drawButton.addEventListener('click', () => {
     console.error('click');
     if (!slot.names.length) {
-      // onSettingsOpen();
-      // return;
-      slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+      onSettingsOpen();
+      return;
+      // slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
     }
 
     slot.spin();
