@@ -9,7 +9,22 @@ include ../mixins/icons
 
   canvas#confetti-canvas.confetti
 
+  #slotOptions
+    div.radio-container
+      div.radio-row
+        input(type='radio', id='option1', name='slotOption', value='radio_devqa', checked)
+        label(for='option1') Dev/QA
+
+      div.radio-row
+        input(type='radio', id='option2', name='slotOption', value='radio_ops')
+        label(for='option2') Ops
+
+      div.radio-row
+        input(type='radio', id='option3', name='slotOption', value='radio_allcompany')
+        label(for='option3') All Company
+
   #lucky-draw
+
     .title
       //- Pug loader currently does not handle webpack alias so we will use relative path here
       // include ../assets/images/title.svg

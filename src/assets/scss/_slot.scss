@@ -10,6 +10,7 @@
   // max-width: $title-width;
   width: 100%;
   margin: $title-margin-top 0 $title-margin-bottom 0;
+  margin-top: 10px;
   position: relative;
   z-index: $z-index-title; // make sure title on top of sunburst
   color: $color-white;

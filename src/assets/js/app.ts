@@ -144,6 +144,29 @@ import SoundEffects from '@js/SoundEffects';
     onNameListChanged: stopWinningAnimation
   });
 
+  // Event listener for radio button changes
+  const slotOptions = document.getElementById('slotOptions');
+  if (slotOptions != null) {
+    slotOptions.addEventListener('change', (event) => {
+      if (event.target == null) return;
+      const selectedOption = (event.target as HTMLInputElement).value;
+
+      // Set up the Slot with the appropriate prepopulated names based on the selected radio button
+      let names;
+
+      if (selectedOption === 'radio_devqa') {
+        names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+      } else if (selectedOption === 'radio_ops') {
+        names = ['Cache', 'Peter', 'Madison'];
+      } else if (selectedOption === 'radio_allcompany') {
+        names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William', 'Cache', 'Peter', 'Madison', 'Morgan', 'Fari'];
+      }
+
+      // Update the names of the existing Slot instance
+      slot.names = names;
+    });
+  }
+
   /** To open the setting page */
   const onSettingsOpen = () => {
     nameListTextArea.value = slot.names.length ? slot.names.join('\n') : '';
@@ -160,11 +183,10 @@ import SoundEffects from '@js/SoundEffects';
 
   // Click handler for "Draw" button
   drawButton.addEventListener('click', () => {
-    console.error('click');
     if (!slot.names.length) {
-      onSettingsOpen();
-      return;
-      // slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+      // onSettingsOpen();
+      // return;
+      slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
     }
 
     slot.spin();
