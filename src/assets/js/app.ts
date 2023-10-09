@@ -155,7 +155,7 @@ import SoundEffects from '@js/SoundEffects';
       let names;
 
       if (selectedOption === 'radio_devqa') {
-        names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+        names = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
       } else if (selectedOption === 'radio_ops') {
         names = ['Cache', 'Peter', 'Madison'];
       } else if (selectedOption === 'radio_allcompany') {
@@ -186,7 +186,7 @@ import SoundEffects from '@js/SoundEffects';
     if (!slot.names.length) {
       // onSettingsOpen();
       // return;
-      slot.names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+      slot.names = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
     }
 
     slot.spin();
