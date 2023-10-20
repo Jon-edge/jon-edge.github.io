@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 interface SlotConfigurations {
   /** User configuration for maximum item inside a reel */
   maxReelItems?: number;
@@ -13,6 +14,35 @@ interface SlotConfigurations {
   /** User configuration for callback function that runs after user updates the name list */
   onNameListChanged?: () => void;
 }
+
+const getRandomInt = (min, max) => {
+  const randomBuffer = new Uint32Array(1);
+  window.crypto.getRandomValues(randomBuffer);
+  const randomNumber = randomBuffer[0] / (0xffffffff + 1);
+  return Math.floor(randomNumber * (max - min + 1)) + min;
+};
+
+/**
+ * Fisher-Yates (Knuth) shuffle algo
+ */
+const shuffle = (array: string[]) => {
+  let currentIndex = array.length;
+  let randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = getRandomInt(0, currentIndex - 1);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]
+    ];
+  }
+
+  return array;
+};
 
 /** Class for doing random name pick and animation */
 export default class Slot {
@@ -95,7 +125,8 @@ export default class Slot {
    * @param names  List of names to draw a winner from
    */
   set names(names: string[]) {
-    this.nameList = names;
+    // Randomize the names into nameList:
+    this.nameList = shuffle(names);
 
     const reelItemsToRemove = this.reelContainer?.children
       ? Array.from(this.reelContainer.children)

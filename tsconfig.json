@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "allowJs": true,
     "target": "es2017",
     "module": "es2015",
-    "lib": ["es2017", "dom", "dom.iterable", "es2019.array"],
+    "lib": ["es2019", "dom", "dom.iterable", "es2019.array"],
     "sourceMap": true,
     "noEmit": true,
     "strict": true,
@@ -28,6 +29,6 @@
       "@fonts/*": ["src/assets/fonts/*"]
     },
   },
-  "include": ["src/**/*.ts", "./declarations.d.ts"],
+  "include": ["src/**/*.ts", "./declarations.d.ts", "src/assets/js/SlotOptions.tsx"],
   "exclude": [],
 }

@@ -1,6 +1,7 @@
-import confetti from 'canvas-confetti';
+/* eslint-disable no-restricted-syntax */
 import Slot from '@js/Slot';
 import SoundEffects from '@js/SoundEffects';
+import confetti from 'canvas-confetti';
 
 // Initialize slot machine
 (() => {
@@ -60,6 +61,10 @@ import SoundEffects from '@js/SoundEffects';
   const CONFETTI_COLORS = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
   let confettiAnimationId;
 
+  const DEV_NAMES = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+  const OPS_NAMES = ['Cache', 'Peter', 'Madison'];
+  const CONTRACTOR_NAMES = ['Fari', 'Morgan'];
+
   /** Confeetti animation instance */
   const customConfetti = confetti.create(confettiCanvas, {
     resize: true,
@@ -69,7 +74,7 @@ import SoundEffects from '@js/SoundEffects';
   /** Triggers cconfeetti animation until animation is canceled */
   const confettiAnimation = () => {
     const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-    const confettiScale = Math.max(0.5, Math.min(1, windowWidth / 1100));
+    const confettiScale = Math.max(0.5, Math.min(1, windowWidth / 1000));
 
     customConfetti({
       particleCount: 1,
@@ -155,11 +160,13 @@ import SoundEffects from '@js/SoundEffects';
       let names;
 
       if (selectedOption === 'radio_devqa') {
-        names = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+        names = DEV_NAMES;
       } else if (selectedOption === 'radio_ops') {
-        names = ['Cache', 'Peter', 'Madison'];
+        names = OPS_NAMES;
       } else if (selectedOption === 'radio_allcompany') {
-        names = ['Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William', 'Cache', 'Peter', 'Madison', 'Morgan', 'Fari'];
+        names = [...DEV_NAMES, ...OPS_NAMES, ...CONTRACTOR_NAMES];
+      } else {
+        names = DEV_NAMES;
       }
 
       // Update the names of the existing Slot instance
@@ -186,9 +193,47 @@ import SoundEffects from '@js/SoundEffects';
     if (!slot.names.length) {
       // onSettingsOpen();
       // return;
-      slot.names = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+      slot.names = DEV_NAMES;
     }
 
+    // const initiateSpin = () => {
+    //   // Start with the current name list
+    //   let namesToSpin = [...slot.names];
+
+    //   // Populate currentNamePickCounts with existing counts or a default of 1
+    //   const currentNamePickCounts: {[name: string]: number} = {};
+    //   for (const name of namesToSpin) {
+    //     currentNamePickCounts[name] = namePickCounts[name] || 1;
+    //   }
+
+    //   // If there is one leading pick, remove them from the list
+    //   const maxPicks = Math.max(...Object.values(currentNamePickCounts));
+    //   const mostPickedNames = Object.keys(currentNamePickCounts).filter(
+    //     (name) => currentNamePickCounts[name] === maxPicks
+    //   );
+
+    //   if (mostPickedNames.length === 1) {
+    //     namesToSpin = namesToSpin.filter((name) => name !== mostPickedNames[0]);
+    //   }
+
+    //   // Find the name(s) with the least picks
+    //   const minPicks = Math.min(...Object.values(currentNamePickCounts));
+    //   const leastPickedNames = Object.keys(currentNamePickCounts).filter(
+    //     (name) => currentNamePickCounts[name] === minPicks
+    //   );
+
+    //   // If there's a least-picked name, add it an extra time to the list
+    //   if (leastPickedNames.length) {
+    //     const randomLeastPickedName = leastPickedNames[Math.floor(Math.random() * leastPickedNames.length)];
+    //     namesToSpin.push(randomLeastPickedName);
+    //   }
+
+    //   // Update the slot machine's name list and initiate the spin
+    //   slot.names = namesToSpin;
+    //   slot.spin();
+    //   setTimeout(initiateSpin, 10); // Wait for 5 seconds before the next spin
+    // };
+    // initiateSpin();
     slot.spin();
   });
 
