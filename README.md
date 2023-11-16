@@ -46,6 +46,8 @@ yarn build
 All the build files can be found in `/dist` folder.
 
 ### Deploy
+Will see updates to the `gh-pages` branch, at which point changes will be live.
+
 ```bash
 yarn predepoly
 yarn deploy
