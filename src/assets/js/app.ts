@@ -61,7 +61,7 @@ import confetti from 'canvas-confetti';
   const CONFETTI_COLORS = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
   let confettiAnimationId;
 
-  const DEV_NAMES = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William'];
+  const DEV_NAMES = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William', 'Morgan', 'Madison', 'Fari'];
   const OPS_NAMES = ['Cache', 'Peter', 'Madison'];
   const CONTRACTOR_NAMES = ['Fari', 'Morgan'];
 

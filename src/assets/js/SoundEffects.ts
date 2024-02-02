@@ -103,7 +103,7 @@ export default class SoundEffects {
     const totalDuration = musicNotes
       .reduce((currentNoteTime, { duration }) => currentNoteTime + duration, 0);
 
-    this.playSound(musicNotes, { type: 'triangle', volume: 1, easeOut: true });
+    this.playSound(musicNotes, { type: 'triangle', volume: 0.1, easeOut: true });
 
     return new Promise<boolean>((resolve) => {
       setTimeout(() => {
@@ -134,7 +134,7 @@ export default class SoundEffects {
     const duration = Math.floor(durationInSecond * 10);
     this.playSound(
       Array.from(Array(duration), (_, index) => musicNotes[index % 3]),
-      { type: 'triangle', easeOut: false, volume: 2 }
+      { type: 'triangle', easeOut: false, volume: 0.1 }
     );
 
     return new Promise<boolean>((resolve) => {
