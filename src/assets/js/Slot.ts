@@ -14,12 +14,42 @@ interface SlotConfigurations {
   /** User configuration for callback function that runs after user updates the name list */
   onNameListChanged?: () => void;
 }
-
 const getRandomInt = (min, max) => {
   const randomBuffer = new Uint32Array(1);
   window.crypto.getRandomValues(randomBuffer);
   const randomNumber = randomBuffer[0] / (0xffffffff + 1);
   return Math.floor(randomNumber * (max - min + 1)) + min;
+};
+
+// Fetch Bitcoin Price Method
+const fetchBitcoinPrice = async (): Promise<number> => {
+  const url = 'https://rates1.edge.app/v2/exchangeRates';
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  const body = JSON.stringify({
+    data: [{ currency_pair: 'BTC_iso:USD' }]
+  });
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error fetching data: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    const exchangeRate = parseFloat(result.data[0].exchangeRate);
+    console.log(`The current exchange rate for BTC to USD is ${exchangeRate}.`);
+    return exchangeRate; // Return the exchange rate for further processing
+  } catch (error) {
+    console.error(`Failed to fetch the Bitcoin price: ${error}`);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
 };
 
 /**
@@ -180,65 +210,53 @@ export default class Slot {
     }
 
     // Shuffle names and create reel items
-    let randomNames = this.nameList;
+    const randomNames = shuffle([...this.nameList]); // Use a copy to shuffle to avoid mutating the original nameList
 
-    const randShuffles = getRandomInt(1, 100);
-    for (let i = 0; i < randShuffles; i += 1) {
-      this.nameList = shuffle(this.nameList);
-      randomNames = this.nameList;
-    }
-
-    while (randomNames.length && randomNames.length < this.maxReelItems) {
-      randomNames = [...randomNames, ...randomNames];
-    }
-
-    randomNames = randomNames.slice(0, this.maxReelItems - Number(this.havePreviousWinner));
-
+    // Append names to the reelContainer
     const fragment = document.createDocumentFragment();
-
     randomNames.forEach((name) => {
       const newReelItem = document.createElement('div');
-      newReelItem.innerHTML = name;
+      newReelItem.textContent = name;
       fragment.appendChild(newReelItem);
     });
-
+    reelContainer.innerHTML = ''; // Clear the existing children
     reelContainer.appendChild(fragment);
 
-    console.log('Displayed items: ', randomNames);
-    console.log('Winner: ', randomNames[randomNames.length - 1]);
-    const winner = randomNames[randomNames.length - 1];
-
-    // Remove winner form name list if necessary
-    if (shouldRemoveWinner) {
-      this.nameList.splice(this.nameList.findIndex(
-        (name) => name === randomNames[randomNames.length - 1]
-      ), 1);
-    }
-
-    console.log('Remaining: ', this.nameList);
+    // Fetch the Bitcoin price and determine the cents value
+    const btcPrice = await fetchBitcoinPrice();
+    const btcCents = btcPrice % 1; // Get the decimal part of the BTC price
+    const rangeSize = 1 / randomNames.length; // Size of each person's range
+    const winnerIndex = Math.floor(btcCents / rangeSize); // Determine the winner index based on btcCents
+    const winner = randomNames[winnerIndex]; // Get the winner's name from the original list
+    console.log(winner);
 
     // Play the spin animation
-    const animationPromise = new Promise((resolve) => {
-      reelAnimation.onfinish = resolve;
+    const animationPromise = new Promise<void>((resolve) => {
+      reelAnimation.onfinish = () => {
+        // Remove all elements except for the visual winner
+        Array.from(reelContainer.children).forEach((child, index) => {
+          if (index !== winnerIndex) {
+            child.remove();
+          }
+        });
+        resolve();
+      };
     });
 
     reelAnimation.play();
-
     await animationPromise;
-
-    // Sets the current playback time to the end of the animation
-    // Fix issue for animatin not playing after the initial play on Safari
-    reelAnimation.finish();
-
-    Array.from(reelContainer.children)
-      .slice(0, reelContainer.children.length - 1)
-      .forEach((element) => element.remove());
 
     this.havePreviousWinner = true;
 
     if (this.onSpinEnd) {
       this.onSpinEnd(winner);
     }
+
+    // Remove winner from name list if necessary
+    if (shouldRemoveWinner) {
+      this.nameList = this.nameList.filter((name) => name !== winner);
+    }
+
     return true;
   }
 }
