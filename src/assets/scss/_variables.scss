@@ -30,14 +30,14 @@ $reel-item-height: 7.5rem;
 // slot
 $slot-width: 40.5rem;
 $slot-height: 14.375rem;
-$slot-border-radius: 1.25rem;
+$slot-border-radius: 2rem;
 $slot-border-width: 1rem;
 $slot-inner-padding: (
     $slot-height - ($slot-border-width * 2) - $reel-item-height
   ) / 2;
 
 // draw-button
-$draw-button-margin-top: 5.5rem;
+$draw-button-margin-top: 3rem;
 $draw-button-width: 22.5rem;
 
 // settings

@@ -25,10 +25,7 @@ export default class SoundEffects {
   private isMuted: boolean;
 
   constructor(isMuted = false) {
-    if (window.AudioContext || window.webkitAudioContext) {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
+    this.audioContext = new AudioContext();
     this.isMuted = isMuted;
   }
 
@@ -92,23 +89,15 @@ export default class SoundEffects {
       return Promise.resolve(false);
     }
 
-    const musicNotes: SoundSeries[] = [
-      { key: 'C4', duration: 0.175 },
-      { key: 'D4', duration: 0.175 },
-      { key: 'E4', duration: 0.175 },
-      { key: 'G4', duration: 0.275 },
-      { key: 'E4', duration: 0.15 },
-      { key: 'G4', duration: 0.9 }
-    ];
-    const totalDuration = musicNotes
-      .reduce((currentNoteTime, { duration }) => currentNoteTime + duration, 0);
-
-    this.playSound(musicNotes, { type: 'triangle', volume: 0.1, easeOut: true });
+    const audio = new Audio('https://nyc3.digitaloceanspaces.com/edgecontent/UI4/hudl/heyheyhey.mp3');
+    // audio.volume = 0.2;
+    audio.play();
 
     return new Promise<boolean>((resolve) => {
       setTimeout(() => {
+        audio.pause();
         resolve(true);
-      }, totalDuration * 1000);
+      }, 2.6 * 1000);
     });
   }
 
@@ -123,9 +112,9 @@ export default class SoundEffects {
     }
 
     const musicNotes: SoundSeries[] = [
-      { key: 'D#3', duration: 0.1 },
+      { key: 'C3', duration: 0.1 },
       { key: 'C#3', duration: 0.1 },
-      { key: 'C3', duration: 0.1 }
+      { key: 'D#3', duration: 0.1 }
     ];
 
     const totalDuration = musicNotes

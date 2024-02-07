@@ -58,12 +58,12 @@ import confetti from 'canvas-confetti';
 
   const soundEffects = new SoundEffects();
   const MAX_REEL_ITEMS = 40;
-  const CONFETTI_COLORS = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
+  const CONFETTI_COLORS = ['#ffffff', '#ebd000', '#059e00'];
   let confettiAnimationId;
 
-  const DEV_NAMES = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Daniel', 'William', 'Morgan', 'Madison', 'Fari'];
+  const DEV_NAMES = ['Sam', 'Sam', 'Jon', 'Jon', 'Michael', 'RJ', 'Matthew', 'Matthew', 'Daniel', 'William', 'Morgan', 'Madison'];
   const OPS_NAMES = ['Cache', 'Peter', 'Madison'];
-  const CONTRACTOR_NAMES = ['Fari', 'Morgan'];
+  const CONTRACTOR_NAMES = ['Fari'];
 
   /** Confeetti animation instance */
   const customConfetti = confetti.create(confettiCanvas, {
@@ -77,10 +77,10 @@ import confetti from 'canvas-confetti';
     const confettiScale = Math.max(0.5, Math.min(1, windowWidth / 1000));
 
     customConfetti({
-      particleCount: 1,
-      gravity: 0.8,
-      spread: 90,
-      origin: { y: 0.6 },
+      particleCount: 5,
+      gravity: 0.3,
+      spread: 360,
+      origin: { y: 0.4 },
       colors: [CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]],
       scalar: confettiScale
     });
@@ -101,7 +101,7 @@ import confetti from 'canvas-confetti';
     stopWinningAnimation();
     drawButton.disabled = true;
     settingsButton.disabled = true;
-    soundEffects.spin(4);
+    soundEffects.spin(1);
   };
 
   const renderLeaderBoard = () => {
@@ -111,6 +111,7 @@ import confetti from 'canvas-confetti';
     // Add a title:
     const title = document.createElement('div');
     title.textContent = 'WINNERS:';
+    title.style.color = 'white';
     leaderboardEl.appendChild(title);
 
     // Sort counts descending
@@ -120,6 +121,7 @@ import confetti from 'canvas-confetti';
     sortedCounts.forEach(([name, count]) => {
       const item = document.createElement('div');
       item.textContent = `${name}: ${count}`;
+      item.style.color = 'white';
       leaderboardEl.appendChild(item);
     });
   };

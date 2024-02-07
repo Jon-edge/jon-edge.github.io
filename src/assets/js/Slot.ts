@@ -111,9 +111,9 @@ export default class Slot {
         { transform: `translateY(-${(this.maxReelItems - 1) * (7.5 * 16)}px)`, filter: 'blur(0)' }
       ],
       {
-        duration: this.maxReelItems * getRandomInt(25, 150), // 100ms for 1 item
+        duration: 1000,
         easing: 'ease-in-out',
-        iterations: getRandomInt(1, 3)
+        iterations: 1
       }
     );
 
@@ -161,28 +161,6 @@ export default class Slot {
   }
 
   /**
-   * Returns a new array where the items are shuffled
-   * @template T  Type of items inside the array to be shuffled
-   * @param array  The array to be shuffled
-   * @returns The shuffled array
-   */
-  private static shuffleNames<T = unknown>(array: T[]): T[] {
-    const keys = Object.keys(array) as unknown[] as number[];
-    const result: T[] = [];
-    for (let k = 0, n = keys.length; k < array.length && n > 0; k += 1) {
-      // eslint-disable-next-line no-bitwise
-      const i = Math.random() * n | 0;
-      const key = keys[i];
-      result.push(array[key]);
-      n -= 1;
-      const tmp = keys[n];
-      keys[n] = key;
-      keys[i] = tmp;
-    }
-    return result;
-  }
-
-  /**
    * Function for spinning the slot
    * @returns Whether the spin is completed successfully
    */
@@ -202,7 +180,13 @@ export default class Slot {
     }
 
     // Shuffle names and create reel items
-    let randomNames = Slot.shuffleNames<string>(this.nameList);
+    let randomNames = this.nameList;
+
+    const randShuffles = getRandomInt(1, 100);
+    for (let i = 0; i < randShuffles; i += 1) {
+      this.nameList = shuffle(this.nameList);
+      randomNames = this.nameList;
+    }
 
     while (randomNames.length && randomNames.length < this.maxReelItems) {
       randomNames = [...randomNames, ...randomNames];

@@ -115,12 +115,13 @@
 }
 
 #draw-button {
-  width: $draw-button-width;
-  max-width: 100%;
   margin: $draw-button-margin-top 0 0;
   position: relative;
   z-index: $z-index-draw-button; // make sure draw button on top of sunburst
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 
   @each $media-query, $factor in $scale-factors {
     @media #{$media-query} {
@@ -128,8 +129,6 @@
       margin: $draw-button-margin-top * $factor 0 0;
       font-size: max((1.75rem * $factor), 1rem);
       line-height: max((1.75rem * $factor), 1rem);
-      padding: 1rem * $factor 0.625rem * $factor;
-      border-radius: 0.625rem * $factor;
       @include shadow('large', $factor);
     }
   }
