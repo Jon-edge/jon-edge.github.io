@@ -74,8 +74,8 @@
             "peerDependencies": false
           }
         ],
-        "comma-dangle": ["error", "never"],
-        "no-console": ["warn", { "allow": ["warn", "error"] }]
+        "comma-dangle": 0,
+        "max-len": 0,
       },
     },
     {
