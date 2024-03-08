@@ -139,7 +139,7 @@ import confetti from 'canvas-confetti';
 
     confettiAnimation();
     sunburstSvg.style.display = 'block';
-    await soundEffects.win();
+    await soundEffects.win(winner);
   };
 
   /** Slot instance */

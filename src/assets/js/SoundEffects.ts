@@ -84,12 +84,12 @@ export default class SoundEffects {
    * Play the winning sound effect
    * @returns Has sound effect been played
    */
-  public win(): Promise<boolean> {
+  public win(winner: string): Promise<boolean> {
     if (this.isMuted) {
       return Promise.resolve(false);
     }
 
-    const audio = new Audio('https://nyc3.digitaloceanspaces.com/edgecontent/UI4/hudl/heyheyhey.mp3');
+    const audio = new Audio(`https://nyc3.digitaloceanspaces.com/edgecontent/UI4/hudl/${winner.toLowerCase()}.wav`);
     // audio.volume = 0.2;
     audio.play();
 
