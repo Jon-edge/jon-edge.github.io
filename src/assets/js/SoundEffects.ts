@@ -97,7 +97,7 @@ export default class SoundEffects {
       setTimeout(() => {
         audio.pause();
         resolve(true);
-      }, 2.6 * 1000);
+      }, 7 * 1000);
     });
   }
 

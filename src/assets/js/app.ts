@@ -61,9 +61,8 @@ import confetti from 'canvas-confetti';
   const CONFETTI_COLORS = ['#ffffff', '#ebd000', '#059e00'];
   let confettiAnimationId;
 
-  const DEV_NAMES = ['Sam', 'Sam', 'Jon', 'Jon', 'Michael', 'RJ', 'Matthew', 'Matthew', 'Daniel', 'William', 'Morgan'];
-  const OPS_NAMES = ['Cache', 'Peter', 'Madison'];
-  const CONTRACTOR_NAMES = ['Fari'];
+  const DEV_NAMES = ['Sam', 'Jon', 'Michael', 'RJ', 'Matthew', 'Madison', 'Daniel', 'William', 'Jared'];
+  const OPS_NAMES = ['Cache', 'Peter', 'Madison', 'Fari'];
 
   /** Confeetti animation instance */
   const customConfetti = confetti.create(confettiCanvas, {
@@ -101,7 +100,7 @@ import confetti from 'canvas-confetti';
     stopWinningAnimation();
     drawButton.disabled = true;
     settingsButton.disabled = true;
-    soundEffects.spin(1);
+    soundEffects.spin(1.25);
   };
 
   const renderLeaderBoard = () => {
@@ -166,7 +165,7 @@ import confetti from 'canvas-confetti';
       } else if (selectedOption === 'radio_ops') {
         names = OPS_NAMES;
       } else if (selectedOption === 'radio_allcompany') {
-        names = [...DEV_NAMES, ...OPS_NAMES, ...CONTRACTOR_NAMES];
+        names = [...DEV_NAMES, ...OPS_NAMES];
       } else {
         names = DEV_NAMES;
       }
